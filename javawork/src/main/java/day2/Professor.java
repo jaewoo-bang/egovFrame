@@ -17,6 +17,4 @@ public class Professor {
 		no = no;		//this.자신 객체
 		name = _name;
 	}
-
-
 }
