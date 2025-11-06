@@ -1,6 +1,7 @@
 package com.yedam.board.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -14,9 +15,9 @@ public interface BoardMapper {
 	//수정
 	int update(BoardVO board);
 	//삭제
-	int delete(Long bno);
+	int delete(Map<String, Object> map);
 	//단건조회
-	int count();
+	BoardVO getBoard(Long bno);
 	//전체조회
 	List<BoardVO>getList();
 	//전체조회(검색)

@@ -31,7 +31,7 @@
 						<th scope="row"></th>
 						<th class="col">${board.bno}</th>
 						<th class="col">${board.writer}</th>
-						<th class="col">${board.title}</th>
+						<th class="col"><a href="/board/update?bno=${board.bno}">${board.title}</th>
 					</tr>
 
 					<c:if test="${not empty board.reply}">

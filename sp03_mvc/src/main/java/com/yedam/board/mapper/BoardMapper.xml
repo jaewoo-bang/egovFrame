@@ -22,39 +22,46 @@
 		B.BNO)
 	</select>
 	<select id="getListByWriter">
-	SELECT *
+		SELECT *
 		FROM TBL_BOARD
 		<where>
-		<if test="writer">
-		WHERE WRITER like '%' || #{writer} || '%'
-		</if>
-		<if test="title">
-		</if>
-		<!-- '%{ }%' -->		
-		   AND TITLE like '%' || #{title} || '%' 
+			<if test="writer">
+				WHERE WRITER like '%' || #{writer} || '%'
+			</if>
+			<if test="title">
+			</if>
+			<!-- '%{ }%' -->
+			AND TITLE like '%' || #{title} || '%'
 		</where>
-	
+
 	</select>
 
 	<insert id="insert">
-	<selectKey keyProperty="bno" order="BEFORE" resultType="long">
-	SELECT SEQ_BOARD.NEXTVAL FROM DUAL
-	</selectKey>
+		<selectKey keyProperty="bno" order="BEFORE"
+			resultType="long">
+			SELECT SEQ_BOARD.NEXTVAL FROM DUAL
+		</selectKey>
 		INSERT INTO TBL_BOARD(BNO, TITLE, CONTENT, WRITER)
-		VALUES( #{bno}, #{title}, #{content}, #{writer})
+		VALUES( #{bno},
+		#{title}, #{content}, #{writer})
 	</insert>
 
 	<update id="update">
 		UPDATE tbl_board SET
 		TITLE = #{title},
-		CONTENT = #{content}
+		CONTENT =
+		#{content}
 		WHERE BNO = #{bno}
 	</update>
-	<delete id="delete">
-		DELETE FROM tbl_board
-		WHERE BNO = #{bno}
+	<delete id="delete" statementType="CALLABLE" parameterType="map">
+		{ call PROC_BOARD_DELETE( #{bno}, #{result, mode=OUT, jdbcType=VARCHAR, javaType=string} ) } 
 	</delete>
+	<select id="getBoard">
+		select *
+		from tbl_board
+		where bno = #{bno}
+	</select>
 	<select id="count">
-	select count(*) from tbl_board
+		select count(*) from tbl_board
 	</select>
 </mapper>
