@@ -1,0 +1,76 @@
+package com.yedam.board.web;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.yedam.board.service.BoardService;
+import com.yedam.board.service.BoardVO;
+
+@Controller
+public class BoardController {
+	@Autowired BoardService BoardService;
+	
+	//json
+	@GetMapping("/api/board")
+	@ResponseBody
+	public List<BoardVO> selectJson() {
+		return BoardService.getList();
+	}
+	
+	//전체조회
+	@GetMapping("/board")
+	public String selectall(Model model) {
+		model.addAttribute("list", BoardService.getList());
+		return "board/list";
+	}
+	//등록페이지
+	@GetMapping("/board/register")
+	public String registerpage() {
+		return "board/register";
+	}
+	//등록처리
+	@PostMapping("/board/register")
+	public String register(BoardVO board) {
+		BoardService.insert(board);
+		return "redirect:/board";
+	}
+	
+	//수정페이지로 이동
+	//등록페이지
+	@GetMapping("/board/update")
+	public String updatepage(Model model, @RequestParam("bno") Long bno) {
+		BoardVO vo = BoardService.getBoard(bno);
+				model.addAttribute("board", vo);
+		return "board/register";
+	}
+	
+	
+	//수정처리
+	@PostMapping("/board/update")
+	public String update(BoardVO board) {
+		BoardService.update(board);
+		return "redirect:/board";
+	}
+	
+	//삭제처리
+	@PostMapping("/board/delete")
+	public String delete( @RequestParam Map<String, Object> map) {
+		BoardService.delete(map);
+		return "redirect:/board";
+	}
+	
+	//단건조회
+	@GetMapping("/board/info")
+	public void info(@RequestParam("bno") Long bno,Model model) {
+		model.addAttribute("board", BoardService.getBoard(bno));
+	}
+	
+}
