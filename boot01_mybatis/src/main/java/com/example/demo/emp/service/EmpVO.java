@@ -1,4 +1,4 @@
-package com.example.demo.service;
+package com.example.demo.emp.service;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,22 +12,20 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class EmpVO {
-
-	String employeeId;
-
+    
+    String employeeId;
+    
 	String firstName;
 	String lastName;
 	String email;
-
+	
 	@JsonFormat(pattern = "yyyy-MM-dd HH")
-	String hireDate; // LocalDateTime , Date
-
+	String hireDate;   //LocalDateTime  , Date
+	
 	String jobId;
-
 	String departmentId;
-
 	Integer salary;
-
-	@JsonIgnore
+	
+	@JsonIgnore 
 	Integer[] employeeIds;
 }

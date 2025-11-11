@@ -1,4 +1,4 @@
-package com.example.demo.impl;
+package com.example.demo.emp.service.impl;
 
 import java.util.List;
 import java.util.Map;
@@ -6,9 +6,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.mapper.EmpMapper;
-import com.example.demo.service.EmpService;
-import com.example.demo.service.EmpVO;
+import com.example.demo.advice.PrintExecutionTime;
+import com.example.demo.emp.mapper.EmpMapper;
+import com.example.demo.emp.service.EmpService;
+import com.example.demo.emp.service.EmpVO;
 
 
 @Service
@@ -23,6 +24,7 @@ public class EmpServiceImpl implements EmpService {
     }
 
     //전체조회
+    @PrintExecutionTime
     @Override
     public List<EmpVO> getEmpList(EmpVO empVO) {
         System.out.println("getEmpList 서비스 호출");

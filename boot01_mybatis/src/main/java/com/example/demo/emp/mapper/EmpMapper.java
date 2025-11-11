@@ -1,9 +1,9 @@
-package com.example.demo.mapper;
+package com.example.demo.emp.mapper;
 
 import java.util.List;
 import java.util.Map;
 
-import com.example.demo.service.EmpVO;
+import com.example.demo.emp.service.EmpVO;
 
 public interface EmpMapper {
 
